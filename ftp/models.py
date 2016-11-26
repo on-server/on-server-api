@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class FtpUser(models.Model):
-	user = models.ForeignKey(settings.AUTH_USER_MODEL)
+	user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_('user'))
 	name = models.CharField(_('name'), max_length=128, unique=True)
 	password = models.CharField(_('login'), max_length=128)
 	home = models.CharField(_('home'), max_length=256)
