@@ -1,0 +1,36 @@
+machine:
+  pre:
+    - echo 'DOCKER_OPTS="-s btrfs -e lxc -D"' | sudo tee -a /etc/default/docker
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  services:
+    - docker
+  python:
+    version: 3.5
+  environment:
+    CONTINUOUS_INTEGRATION: true
+
+dependencies:
+  override:
+    - pip install -U pip
+    - pip install -Ur requirements.txt
+    - manage.py migrate
+    - manage.py collectstatic --noinput
+test:
+  override:
+    - manage.py test
+
+deployment:
+  master:
+    branch: master
+    commands:
+      - docker build --rm=false -t "flyin/on-server-api:master" -t "flyin/on-server-api:master.$CIRCLE_BUILD_NUM" .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_LOGIN -p $DOCKER_PASS
+      - docker push "flyin/on-server-api:master"
+      - docker push "flyin/on-server-api:master.$CIRCLE_BUILD_NUM"
+  production:
+    branch: production
+    commands:
+      - docker build --rm=false -t "flyin/on-server-api:production" -t "flyin/on-server-api:production.$CIRCLE_BUILD_NUM" .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_LOGIN -p $DOCKER_PASS
+      - docker push "flyin/on-server-api:production"
+      - docker push "flyin/on-server-api:production.$CIRCLE_BUILD_NUM"

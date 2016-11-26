@@ -11,5 +11,6 @@ RUN pip install -U pip \
     && /code/manage.py collectstatic --noinput
 
 COPY . /code/
+COPY entrypoint.sh /
 
-CMD ["/code/bin/run.sh"]
+CMD ["/entrypoint.sh"]
