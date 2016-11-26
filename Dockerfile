@@ -6,11 +6,10 @@ RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt /code/
 
-RUN pip install -U pip \
-    && pip install -Ur requirements.txt \
-    && /code/manage.py collectstatic --noinput
-
+RUN pip install -U pip && pip install -Ur requirements.txt
 COPY . /code/
-COPY entrypoint.sh /
 
+RUN python manage.py collectstatic --noinput
+
+COPY entrypoint.sh /
 CMD ["/entrypoint.sh"]
