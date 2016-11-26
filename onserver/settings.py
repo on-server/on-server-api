@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import environ
+import os
 
 root = environ.Path(__file__) - 2
 env = environ.Env(DEBUG=(bool, False), )
@@ -10,7 +11,9 @@ public_root = root.path('public/')
 BASE_DIR = root()
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = env.tuple('CORS_ORIGIN_WHITELIST')
+ALLOWED_HOSTS = env.tuple('ALLOWED_HOSTS')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -91,3 +94,21 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = public_root('static')
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler'
+        }
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO')
+        }
+    }
+}
