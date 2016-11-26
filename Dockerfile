@@ -9,8 +9,8 @@ COPY requirements.txt /code/
 RUN pip install -U pip && pip install -Ur requirements.txt
 COPY . /code/
 
-RUN python manage.py collectstatic --noinput
-
 EXPOSE 8000
 COPY entrypoint.sh /
+VOLUME /code/public
+
 CMD ["/entrypoint.sh"]
