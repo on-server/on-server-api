@@ -5,7 +5,7 @@ machine:
   services:
     - docker
   python:
-    version: 3.5
+    version: 3.5.2
   environment:
     CONTINUOUS_INTEGRATION: true
 
