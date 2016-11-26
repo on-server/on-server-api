@@ -1,2 +1,4 @@
 Django==1.10.3
+django-environ==0.4.1
+six==1.10.0
 uWSGI==2.0.14
