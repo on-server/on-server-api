@@ -8,10 +8,10 @@ class FtpUser(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	name = models.CharField(_('name'), max_length=128, unique=True)
 	password = models.CharField(_('login'), max_length=128)
-	home = models.CharField(_('home'))
+	home = models.CharField(_('home'), max_length=256)
 	uid = models.PositiveIntegerField(_('uid'), unique=True)
 	gid = models.PositiveIntegerField(_('uid'), unique=True)
-	shell = models.CharField(_('shell'), default='/usr/sbin/nologin')
+	shell = models.CharField(_('shell'), default='/usr/sbin/nologin', max_length=256)
 	created_at = models.DateTimeField(_('created at'), blank=True, editable=False, auto_now_add=True)
 	updated_at = models.DateTimeField(_('updated at'), blank=True, editable=False, auto_now=True)
 
