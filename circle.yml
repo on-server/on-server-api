@@ -18,7 +18,7 @@ dependencies:
     - python manage.py collectstatic --noinput
 test:
   override:
-    - manage.py test
+    - python manage.py test
 
 deployment:
   master:
