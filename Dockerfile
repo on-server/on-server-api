@@ -2,7 +2,10 @@ FROM python:latest
 
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir /code
+RUN apt-get update \
+    && sudo apt-get -y install netcat \
+    && mkdir /code
+
 WORKDIR /code
 COPY requirements.txt /code/
 
