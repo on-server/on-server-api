@@ -19,6 +19,7 @@ class FtpUser(models.Model):
         verbose_name = _('ftp user')
         verbose_name_plural = _('ftp users')
         ordering = ('user', 'name', '-created_at')
+        db_table = 'ftp_user'
 
 
 class FtpGroup(models.Model):
@@ -30,6 +31,7 @@ class FtpGroup(models.Model):
 
     class Meta:
         ordering = ('name', 'gid', '-created_at')
+        db_table = 'ftp_group'
 
 
 class FtpAccess(models.Model):
@@ -42,3 +44,4 @@ class FtpAccess(models.Model):
 
     class Meta:
         ordering = ('name', '-created_at')
+        db_table = 'ftp_access'
