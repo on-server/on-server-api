@@ -13,8 +13,8 @@ dependencies:
   override:
     - pip install -U pip
     - pip install -Ur requirements.txt
-    - manage.py migrate
-    - manage.py collectstatic --noinput
+    - python manage.py migrate
+    - python manage.py collectstatic --noinput
 test:
   override:
     - manage.py test
